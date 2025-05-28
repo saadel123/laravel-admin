@@ -16,16 +16,23 @@
                 <div class="col-md-6">
                     <label for="title_{{ $lang }}" class="form-label">Titre ({{ strtoupper($lang) }})</label>
                     <input type="text" id="title_{{ $lang }}" name="title[{{ $lang }}]"
-                        class="form-control" placeholder="Saisir le titre en {{ strtoupper($lang) }}"
+                        class="form-control @error("title.$lang") is-invalid @enderror"
+                        placeholder="Saisir le titre en {{ strtoupper($lang) }}"
                         value="{{ old("title.$lang", $blog->title[$lang] ?? '') }}">
+                    @error("title.$lang")
+                        <span class="error invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="col-md-6">
                     <label for="content_{{ $lang }}" class="form-label">Contenu
-                        ({{ strtoupper($lang) }})
-                    </label>
-                    <textarea id="content_{{ $lang }}" name="content[{{ $lang }}]" class="form-control" rows="2"
+                        ({{ strtoupper($lang) }})</label>
+                    <textarea id="content_{{ $lang }}" name="content[{{ $lang }}]"
+                        class="form-control @error("content.$lang") is-invalid @enderror" rows="2"
                         placeholder="Saisir le contenu en {{ strtoupper($lang) }}">{{ old("content.$lang", $blog->content[$lang] ?? '') }}</textarea>
+                    @error("content.$lang")
+                        <span class="error invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
             @endforeach
 

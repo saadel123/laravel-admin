@@ -1,0 +1,60 @@
+@props(['user' => null])
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ isset($user) ? 'Modifier un utilisateur' : 'Ajouter un utilisateur' }}</h5>
+
+        <form action="{{ isset($user) ? route('admin.users.update', $user) : route('admin.users.store') }}" method="POST"
+            class="row g-3">
+            @csrf
+            @if (isset($user))
+                @method('PUT')
+            @endif
+
+            <div class="col-md-6">
+                <label for="name" class="form-label">Nom</label>
+                <input type="text" id="name" name="name"
+                    class="form-control @error('name') is-invalid @enderror"
+                    value="{{ old('name', $user->name ?? '') }}">
+                @error('name')
+                    <span class="error invalid-feedback d-block">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email"
+                    class="form-control @error('email') is-invalid @enderror"
+                    value="{{ old('email', $user->email ?? '') }}">
+                @error('email')
+                    <span class="error invalid-feedback d-block">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" id="password" name="password"
+                    class="form-control @error('password') is-invalid @enderror">
+                @error('password')
+                    <span class="error invalid-feedback d-block">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <label for="password_confirmation" class="form-label">Confirmation</label>
+                <input type="password" id="password_confirmation" name="password_confirmation"
+                    class="form-control @error('password_confirmation') is-invalid @enderror">
+                @error('password_confirmation')
+                    <span class="error invalid-feedback d-block">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">{{ isset($user) ? 'Mettre à jour' : 'Créer' }}</button>
+                @unless ($user)
+                    <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+                @endunless
+            </div>
+        </form>
+    </div>
+</div>

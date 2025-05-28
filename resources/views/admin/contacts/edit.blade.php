@@ -2,16 +2,15 @@
 
 @section('content')
     @include('admin.components.page-title', [
-        'title' => 'Utilisateurs',
-        'backRoute' => route('admin.users.index'),
-        'createLabel' => 'Ajouter',
-        'indexRoute' => route('admin.users.index'),
+        'title' => 'Contacts',
+        'backRoute' => route('admin.contacts.index'),
+        'indexRoute' => route('admin.contacts.index'),
     ])
 
     <section>
         <div class="row">
             <div class="col-md-12">
-                @include('admin.users._form')
+                @include('admin.contacts._form', ['contact' => $contact])
             </div>
         </div>
     </section>

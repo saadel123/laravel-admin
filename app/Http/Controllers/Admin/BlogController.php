@@ -17,7 +17,7 @@ class BlogController extends Controller
 
     public function create()
     {
-        return view('admin.blogs.form');
+        return view('admin.blogs.create');
     }
 
     public function store(Request $request)
@@ -30,12 +30,12 @@ class BlogController extends Controller
         $data['slug'] = Str::slug($data['title']['en']); // or use fr/ar if preferred
 
         Blog::create($data);
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created.');
+        return redirect()->route('admin.blogs.index')->with('success', 'Article ajouté avec succès.');
     }
 
     public function edit(Blog $blog)
     {
-        return view('admin.blogs.form', compact('blog'));
+        return view('admin.blogs.edit', compact('blog'));
     }
 
     public function update(Request $request, Blog $blog)
@@ -48,12 +48,12 @@ class BlogController extends Controller
         $data['slug'] = Str::slug($data['title']['en']);
 
         $blog->update($data);
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated.');
+        return redirect()->route('admin.blogs.index')->with('success', 'Article modifié avec succès.');
     }
 
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted.');
+        return redirect()->route('admin.blogs.index')->with('error', 'Article supprimé avec succès.');
     }
 }

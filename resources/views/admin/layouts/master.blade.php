@@ -6,13 +6,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>FRMV</title>
+    <title>Admin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicons -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('img/dicom.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img') }}" />
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -26,12 +26,11 @@
     <link href="{{ asset('admin/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap-icons/bootstrap-icons.css') }}"> --}}
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
     <!-- Template Main CSS File -->
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/custom.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -45,7 +44,10 @@
     </aside>
     <main id="main" class="main">
         @yield('content')
+        @include('admin.components.delete-modal')
+
     </main>
+
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
@@ -60,6 +62,44 @@
     <script src="{{ asset('admin/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('success') }}',
+                iconColor: '#28a745', // Bootstrap green
+                background: '#e9f6ec',
+                color: '#155724',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: '{{ session('error') }}',
+                iconColor: '#dc3545', // Bootstrap red
+                background: '#f8d7da',
+                color: '#721c24',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+        </script>
+    @endif
+    <script src="{{ asset('admin/js/delete-handler.js') }}"></script>
+
     @yield('scripts')
 </body>
 

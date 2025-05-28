@@ -1,21 +1,41 @@
 @extends('admin.layouts.master')
 
 @section('content')
-<div class="container">
-    <h2>Blog List</h2>
-    <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary mb-3">Add Blog</a>
+    @include('admin.components.page-title', [
+        'title' => 'Blogs',
+        'createRoute' => route('admin.blogs.create'),
+        'createLabel' => 'Ajouter',
+    ])
 
-    @foreach ($blogs as $blog)
-        <div class="card mb-2">
-            <div class="card-body">
-                <h5>{{ $blog->title['en'] ?? 'No Title' }}</h5>
-                <a href="{{ route('admin.blogs.edit', $blog) }}" class="btn btn-sm btn-warning">Edit</a>
-                <form action="{{ route('admin.blogs.destroy', $blog) }}" method="POST" class="d-inline">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                </form>
+    <section class="section container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @include('admin.components.datatable', [
+                            'headers' => [
+                                ['label' => 'Id', 'key' => 'id'],
+                                ['label' => 'Titre (FR)', 'key' => 'title.fr'],
+                                ['label' => 'Slug', 'key' => 'slug'],
+                                ['label' => 'Date', 'key' => 'date'],
+                                ['label' => 'Actions', 'key' => 'actions', 'align' => 'right'],
+                            ],
+                            'rows' => $blogs->map(function ($blog) {
+                                return [
+                                    'id' => $blog->id,
+                                    'title.fr' => $blog->title['fr'] ?? '-',
+                                    'slug' => $blog->slug,
+                                    'date' => $blog->created_at->format('Y-m-d'),
+                                    'actions' => view('admin.components.action-buttons', [
+                                        'editRoute' => route('admin.blogs.edit', $blog->id),
+                                        'deleteRoute' => route('admin.blogs.destroy', $blog->id),
+                                    ])->render(),
+                                ];
+                            }),
+                        ])
+                    </div>
+                </div>
             </div>
         </div>
-    @endforeach
-</div>
+    </section>
 @endsection

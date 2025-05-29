@@ -3,13 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
-    protected $fillable = ['title', 'content', 'slug'];
+    use SoftDeletes;
+    protected $fillable = ['title', 'content', 'slug','image'];
 
     protected $casts = [
         'title' => 'array',
         'content' => 'array',
+        'image' => 'string',
     ];
+
+    public function resources()
+    {
+        return $this->morphMany(Resource::class, 'resourceable');
+    }
+
 }

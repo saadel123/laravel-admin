@@ -31,22 +31,35 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/custom.css') }}" rel="stylesheet">
+    @yield('stylesheet')
+
 </head>
 
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-        @include('admin.layouts.header')
-    </header>
-    <aside id="sidebar" class="sidebar">
-        @include('admin.layouts.aside')
-    </aside>
+    {{-- Only show header and sidebar if not on auth pages --}}
+    @php
+        $authRoutes = ['login', 'register', 'password.request', 'password.reset'];
+    @endphp
+
+    @if (!in_array(Route::currentRouteName(), $authRoutes))
+        <header id="header" class="header fixed-top d-flex align-items-center">
+            @include('admin.layouts.header')
+        </header>
+
+        <aside id="sidebar" class="sidebar">
+            @include('admin.layouts.aside')
+        </aside>
+    @endif
+
     <main id="main" class="main">
         @yield('content')
-        @include('admin.components.delete-modal')
-
+        @if (!in_array(Route::currentRouteName(), $authRoutes))
+            @include('admin.components.delete-modal')
+        @endif
     </main>
+
 
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

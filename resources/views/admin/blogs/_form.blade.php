@@ -149,9 +149,9 @@
 
             if (isSuccess) {
                 Object.assign(config, {
-                    iconColor: '#198754',
-                    background: '#d1e7dd',
-                    color: '#0f5132'
+                    iconColor: '#dc3545',
+                    background: '#f8d7da',
+                    color: '#721c24'
                 });
             } else {
                 Object.assign(config, {

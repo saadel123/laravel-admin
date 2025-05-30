@@ -11,12 +11,15 @@ use Illuminate\Support\Facades\Route;
 //     return 'Admin Dashboard Works!';
 // })->name('dashboard');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth'])->group(callback: function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::resource('blogs', BlogController::class);
-Route::delete('/blogs/{blog}/remove-image', [BlogController::class, 'removeImage'])->name('blogs.removeImage');
+    Route::resource('blogs', BlogController::class);
+    Route::delete('/blogs/{blog}/remove-image', [BlogController::class, 'removeImage'])->name('blogs.removeImage');
 
-Route::resource('users', UserController::class);
-Route::resource('contacts', ContactController::class);
-Route::resource('resources', ResourceController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('contacts', ContactController::class);
+    Route::resource('resources', ResourceController::class);
+
+});
 

@@ -1,7 +1,8 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-        <a class="nav-link " href="#">
+        <a class="nav-link {{ Str::startsWith(request()->url(), route('admin.dashboard')) ? '' : 'collapsed' }}"
+            href="{{ route('admin.dashboard') }}">
             <i class="bi bi-grid"></i>
             <span>Home</span>
         </a>

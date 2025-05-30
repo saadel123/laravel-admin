@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,3 +13,8 @@ Route::prefix('admin')
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+Auth::routes(['register' => false]);
+
+Route::get('/dashboard/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

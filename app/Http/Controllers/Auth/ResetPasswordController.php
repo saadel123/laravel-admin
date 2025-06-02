@@ -25,5 +25,8 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    protected function redirectTo()
+    {
+        return auth()->user()->is_admin ? '/admin/dashboard' : '/';
+    }
 }

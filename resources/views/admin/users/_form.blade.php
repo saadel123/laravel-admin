@@ -41,6 +41,20 @@
             </div>
 
             <div class="col-md-6">
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="is_admin" name="is_admin" value="1"
+                        {{ old('is_admin', $user->is_admin ?? false) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="is_admin">
+                        Administrateur
+                    </label>
+                </div>
+                @error('is_admin')
+                    <span class="error invalid-feedback d-block">{{ $message }}</span>
+                @enderror
+            </div>
+
+
+            <div class="col-md-6">
                 <label for="password_confirmation" class="form-label">Confirmation</label>
                 <input type="password" id="password_confirmation" name="password_confirmation"
                     class="form-control @error('password_confirmation') is-invalid @enderror">

@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center justify-content-between">
-    <a href="{{ route('home') }}" class="logo d-flex align-items-center">
+    <a href="{{ route('admin.dashboard') }}" class="logo d-flex align-items-center">
         <img src="assetsadmin/img/logo.png" alt="">
         <span class="d-none d-lg-block">FRMV</span>
     </a>

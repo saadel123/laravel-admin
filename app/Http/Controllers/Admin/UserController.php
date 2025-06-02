@@ -30,9 +30,11 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'is_admin' => 'nullable|boolean'
         ]);
 
         $data['password'] = bcrypt($data['password']);
+        $data['is_admin'] = $request->has('is_admin');
         User::create($data);
 
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès');
@@ -49,6 +51,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => "required|email|unique:users,email,{$user->id}",
             'password' => 'nullable|string|min:6|confirmed',
+            'is_admin' => 'nullable|boolean',
         ]);
 
         if ($request->filled('password')) {
@@ -56,7 +59,7 @@ class UserController extends Controller
         } else {
             unset($data['password']);
         }
-
+        $data['is_admin'] = $request->has('is_admin');
         $user->update($data);
 
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès');

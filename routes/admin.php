@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 //     return 'Admin Dashboard Works!';
 // })->name('dashboard');
 
-Route::middleware(['auth'])->group(callback: function () {
+Route::middleware(['auth','is_admin'])->group(callback: function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('blogs', BlogController::class);

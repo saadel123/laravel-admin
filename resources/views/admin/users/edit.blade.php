@@ -1,13 +1,8 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    @include('admin.components.page-title', [
-        'title' => 'Utilisateurs',
-        'backRoute' => route('admin.users.index'),
-        'createRoute' => route('admin.users.create'),
-        'createLabel' => 'Ajouter',
-        'indexRoute' => route('admin.users.index'),
-    ])
+    <x-admin.layout.page-title title="Utilisateurs" :backRoute="route('admin.users.index')" :createRoute="route('admin.users.create')" create-label="Modifier"
+        :index-route="route('admin.users.index')" />
 
     <section>
         <div class="row">

@@ -56,7 +56,7 @@
     <main id="main" class="main">
         @yield('content')
         @if (!in_array(Route::currentRouteName(), $authRoutes))
-            @include('admin.components.delete-modal')
+            <x-admin.ui.delete-modal />
         @endif
     </main>
 

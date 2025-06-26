@@ -1,11 +1,8 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    @include('admin.components.page-title', [
-        'title' => 'Contacts',
-        'backRoute' => route('admin.contacts.index'),
-        'indexRoute' => route('admin.contacts.index'),
-    ])
+    <x-admin.layout.page-title title="Contacts" :createRoute="route('admin.contacts.create')" :backRoute="route('admin.contacts.index')" :indexRoute="route('admin.contacts.index')" />
+
 
     <section>
         <div class="row">

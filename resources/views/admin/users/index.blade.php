@@ -1,41 +1,32 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    @include('admin.components.page-title', [
-        'title' => 'Utilisateurs',
-        'createRoute' => route('admin.users.create'),
-        'createLabel' => 'Ajouter',
-    ])
+    <x-admin.layout.page-title title="Utilisateurs" :createRoute="route('admin.users.create')" create-label="Ajouter" />
 
-    <section class="section container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        @include('admin.components.datatable', [
-                            'headers' => [
-                                ['label' => 'ID', 'key' => 'id'],
-                                ['label' => 'Nom', 'key' => 'name'],
-                                ['label' => 'Email', 'key' => 'email'],
-                                ['label' => 'Date', 'key' => 'created_at'],
-                                ['label' => 'Actions', 'key' => 'actions', 'align' => 'right'],
-                            ],
-                            'rows' => $users->map(function ($user) {
-                                return [
-                                    'id' => $user->id,
-                                    'name' => $user->name,
-                                    'email' => $user->email,
-                                    'created_at' => $user->created_at->format('Y-m-d'),
-                                    'actions' => view('admin.components.action-buttons', [
-                                        'editRoute' => route('admin.users.edit', $user),
-                                        'deleteRoute' => route('admin.users.destroy', $user),
-                                    ])->render(),
-                                ];
-                            }),
-                        ])
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <x-admin.layout.card-wrapper>
+        @php
+            $headers = [
+                ['label' => 'ID', 'key' => 'id'],
+                ['label' => 'Nom', 'key' => 'name'],
+                ['label' => 'Email', 'key' => 'email'],
+                ['label' => 'Date', 'key' => 'created_at'],
+                ['label' => 'Actions', 'key' => 'actions', 'align' => 'text-end'],
+            ];
+
+            $rows = $users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'created_at' => $user->created_at->format('Y-m-d'),
+                    'actions' => view('components.admin.ui.action-buttons', [
+                        'editRoute' => route('admin.users.edit', $user),
+                        'deleteRoute' => route('admin.users.destroy', $user),
+                    ])->render(),
+                ];
+            });
+        @endphp
+
+        <x-admin.ui.datatable :headers="$headers" :rows="$rows" />
+    </x-admin.layout.card-wrapper>
 @endsection

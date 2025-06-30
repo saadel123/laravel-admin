@@ -68,7 +68,7 @@ class BlogController extends Controller
             }
         }
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Article ajouté avec fichiers.');
+        return redirect()->route('admin.blogs.index')->with('success', 'Article ajouté avec succès.');
     }
 
 
@@ -129,7 +129,7 @@ class BlogController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Article modifié avec fichiers.');
+        return redirect()->back()->with('success', 'Article modifié avec succès.');
     }
 
     public function destroy(Blog $blog)

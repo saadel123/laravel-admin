@@ -1,3 +1,5 @@
+@props(['title' => 'Admin'])
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,20 +7,17 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="robots" content="noindex, nofollow">
+    <title>{{ $title }}</title>
 
-    <title>Admin</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-    <!-- CSRF Token -->
+    <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Favicons -->
+
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('img') }}" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts & Vendor CSS -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Nunito|Poppins" rel="stylesheet">
     <link href="{{ asset('admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
@@ -28,42 +27,35 @@
     <link href="{{ asset('admin/vendor/simple-datatables/style.css') }}" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
-    <!-- Template Main CSS File -->
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/custom.css') }}" rel="stylesheet">
-    @yield('stylesheet')
 
+    @stack('styles')
 </head>
 
 <body>
-
-    <!-- ======= Header ======= -->
-    {{-- Only show header and sidebar if not on auth pages --}}
     @php
         $authRoutes = ['login', 'register', 'password.request', 'password.reset'];
     @endphp
 
-    @if (!in_array(Route::currentRouteName(), $authRoutes))
-        <header id="header" class="header fixed-top d-flex align-items-center">
-            @include('admin.layouts.header')
-        </header>
-
-        <aside id="sidebar" class="sidebar">
-            @include('admin.layouts.aside')
-        </aside>
-    @endif
+    @unless (in_array(Route::currentRouteName(), $authRoutes))
+        <x-admin.layout.header />
+        <x-admin.layout.aside />
+    @endunless
 
     <main id="main" class="main">
-        @yield('content')
-        @if (!in_array(Route::currentRouteName(), $authRoutes))
+        {{ $slot }}
+
+        @unless (in_array(Route::currentRouteName(), $authRoutes))
             <x-admin.ui.delete-modal />
-        @endif
+        @endunless
     </main>
 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
 
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <!-- Scripts -->
     <script src="{{ asset('admin/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/chart.js/chart.umd.js') }}"></script>
@@ -75,9 +67,9 @@
     <script src="{{ asset('admin/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('admin/js/delete-handler.js') }}"></script>
+
     @if (session('success'))
         <script>
             Swal.fire({
@@ -111,9 +103,8 @@
             });
         </script>
     @endif
-    <script src="{{ asset('admin/js/delete-handler.js') }}"></script>
 
-    @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>

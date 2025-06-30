@@ -1,8 +1,5 @@
-@extends('admin.layouts.master')
-
-@section('content')
+<x-admin.layout.app>
     <x-admin.layout.page-title title="Blogs" :createRoute="route('admin.blogs.create')" create-label="Ajouter" />
-
 
     <x-admin.layout.card-wrapper>
         @php
@@ -30,4 +27,4 @@
 
         <x-admin.ui.datatable :headers="$headers" :rows="$rows" />
     </x-admin.layout.card-wrapper>
-@endsection
+</x-admin.layout.app>

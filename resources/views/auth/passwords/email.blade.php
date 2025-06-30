@@ -1,10 +1,8 @@
-@extends('admin.layouts.master')
-
-@section('stylesheet')
+@push('styles')
     <link href="{{ asset('admin/css/auth.css') }}" rel="stylesheet">
-@endsection
+@endpush
 
-@section('content')
+<x-admin.layout.app title="Auth">
     <div class="container">
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
@@ -74,4 +72,4 @@
             </div>
         </section>
     </div>
-@endsection
+</x-admin.layout.app>

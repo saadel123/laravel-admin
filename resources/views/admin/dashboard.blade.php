@@ -1,5 +1,4 @@
-@extends('admin.layouts.master')
-@section('content')
+<x-admin.layout.app>
     <div class="pagetitle">
         <h1>Dashboard</h1>
         <nav>
@@ -32,7 +31,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">Sales <span>| Today</span></h5>
                                 <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
@@ -63,7 +63,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">Revenue <span>| This Month</span></h5>
                                 <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-currency-dollar"></i>
                                     </div>
                                     <div class="ps-3">
@@ -94,7 +95,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">Customers <span>| This Year</span></h5>
                                 <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
@@ -243,21 +245,24 @@
                                         <tr>
                                             <th scope="row"><a href="#">#2049</a></th>
                                             <td>Ashleigh Langosh</td>
-                                            <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                                            <td><a href="#" class="text-primary">At recusandae consectetur</a>
+                                            </td>
                                             <td>$147</td>
                                             <td><span class="badge bg-success">Approved</span></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><a href="#">#2644</a></th>
                                             <td>Angus Grady</td>
-                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a>
+                                            </td>
                                             <td>$67</td>
                                             <td><span class="badge bg-danger">Rejected</span></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><a href="#">#2644</a></th>
                                             <td>Raheem Lehner</td>
-                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a>
+                                            </td>
                                             <td>$165</td>
                                             <td><span class="badge bg-success">Approved</span></td>
                                         </tr>
@@ -304,7 +309,8 @@
                                         <tr>
                                             <th scope="row"><a href="#"><img src="assets/img/product-1.jpg"
                                                         alt=""></a></th>
-                                            <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas
+                                            <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
+                                                    voluptas
                                                     nulla</a></td>
                                             <td>$64</td>
                                             <td class="fw-bold">124</td>
@@ -313,7 +319,8 @@
                                         <tr>
                                             <th scope="row"><a href="#"><img src="assets/img/product-2.jpg"
                                                         alt=""></a></th>
-                                            <td><a href="#" class="text-primary fw-bold">Exercitationem similique
+                                            <td><a href="#" class="text-primary fw-bold">Exercitationem
+                                                    similique
                                                     doloremque</a></td>
                                             <td>$46</td>
                                             <td class="fw-bold">98</td>
@@ -331,7 +338,8 @@
                                         <tr>
                                             <th scope="row"><a href="#"><img src="assets/img/product-4.jpg"
                                                         alt=""></a></th>
-                                            <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum
+                                            <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint
+                                                    rerum
                                                     error</a></td>
                                             <td>$32</td>
                                             <td class="fw-bold">63</td>
@@ -340,7 +348,8 @@
                                         <tr>
                                             <th scope="row"><a href="#"><img src="assets/img/product-5.jpg"
                                                         alt=""></a></th>
-                                            <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus
+                                            <td><a href="#" class="text-primary fw-bold">Sit unde debitis
+                                                    delectus
                                                     repellendus</a></td>
                                             <td>$79</td>
                                             <td class="fw-bold">41</td>
@@ -363,7 +372,8 @@
                 <!-- Recent Activity -->
                 <div class="card">
                     <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <li class="dropdown-header text-start">
                                 <h6>Filter</h6>
@@ -438,7 +448,8 @@
                 <!-- Budget Report -->
                 <div class="card">
                     <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <li class="dropdown-header text-start">
                                 <h6>Filter</h6>
@@ -512,7 +523,8 @@
                 <!-- Website Traffic -->
                 <div class="card">
                     <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <li class="dropdown-header text-start">
                                 <h6>Filter</h6>
@@ -590,7 +602,8 @@
                 <!-- News & Updates Traffic -->
                 <div class="card">
                     <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <li class="dropdown-header text-start">
                                 <h6>Filter</h6>
@@ -633,7 +646,8 @@
                             <div class="post-item clearfix">
                                 <img src="assets/img/news-5.jpg" alt="">
                                 <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
+                                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...
+                                </p>
                             </div>
 
                         </div><!-- End sidebar recent posts-->
@@ -645,4 +659,4 @@
 
         </div>
     </section>
-@endsection
+</x-admin.layout.app>

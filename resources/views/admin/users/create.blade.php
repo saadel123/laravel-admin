@@ -1,7 +1,6 @@
-@extends('admin.layouts.master')
-
-@section('content')
-    <x-admin.layout.page-title title="Utilisateurs" :backRoute="route('admin.users.index')" :createRoute="route('admin.users.create')" create-label="Ajouter" :indexRoute="route('admin.users.index')" />
+<x-admin.layout.app>
+    <x-admin.layout.page-title title="Utilisateurs" :backRoute="route('admin.users.index')" :createRoute="route('admin.users.create')" create-label="Ajouter"
+        :indexRoute="route('admin.users.index')" />
 
     <section>
         <div class="row">
@@ -10,4 +9,4 @@
             </div>
         </div>
     </section>
-@endsection
+</x-admin.layout.app>

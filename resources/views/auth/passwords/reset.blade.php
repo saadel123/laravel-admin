@@ -1,15 +1,14 @@
-@extends('admin.layouts.master')
-
-@section('stylesheet')
+@push('styles')
     <link href="{{ asset('admin/css/auth.css') }}" rel="stylesheet">
-@endsection
+@endpush
 
-@section('content')
+<x-admin.layout.app title="Auth">
     <div class="container">
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 col-md-8 col-sm-10 d-flex flex-column align-items-center justify-content-center">
+                    <div
+                        class="col-lg-6 col-md-8 col-sm-10 d-flex flex-column align-items-center justify-content-center">
 
                         <div class="card mb-3 auth-card">
                             {{-- <div class="auth-logo">
@@ -22,10 +21,12 @@
 
                                 <div class="pt-4 pb-2 text-center">
                                     <h5 class="card-title">Réinitialisation du mot de passe</h5>
-                                    <p class="card-subtitle">Veuillez saisir votre adresse e-mail et un nouveau mot de passe.</p>
+                                    <p class="card-subtitle">Veuillez saisir votre adresse e-mail et un nouveau mot de
+                                        passe.</p>
                                 </div>
 
-                                <form method="POST" action="{{ route('password.update') }}" class="row g-3 needs-validation" novalidate>
+                                <form method="POST" action="{{ route('password.update') }}"
+                                    class="row g-3 needs-validation" novalidate>
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
 
@@ -35,8 +36,8 @@
                                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                             <input id="email" type="email"
                                                 class="form-control @error('email') is-invalid @enderror" name="email"
-                                                value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus
-                                                placeholder="votre@email.com">
+                                                value="{{ $email ?? old('email') }}" required autocomplete="email"
+                                                autofocus placeholder="votre@email.com">
                                             @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -50,8 +51,9 @@
                                         <div class="input-group has-validation">
                                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                             <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                                required autocomplete="new-password" placeholder="Nouveau mot de passe">
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                name="password" required autocomplete="new-password"
+                                                placeholder="Nouveau mot de passe">
                                             @error('password')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -61,7 +63,8 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="password-confirm" class="form-label">Confirmer le mot de passe</label>
+                                        <label for="password-confirm" class="form-label">Confirmer le mot de
+                                            passe</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                                             <input id="password-confirm" type="password" class="form-control"
@@ -90,4 +93,4 @@
             </div>
         </section>
     </div>
-@endsection
+</x-admin.layout.app>

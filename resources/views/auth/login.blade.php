@@ -1,10 +1,8 @@
-@extends('admin.layouts.master')
-
-@section('stylesheet')
+@push('styles')
     <link href="{{ asset('admin/css/auth.css') }}" rel="stylesheet">
-@endsection
+@endpush
 
-@section('content')
+<x-admin.layout.app title="Auth">
     <div class="container">
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
@@ -50,8 +48,9 @@
                                         <div class="input-group has-validation">
                                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                             <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                                required autocomplete="new-password" placeholder="Entrez un mot de passe">
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                name="password" required autocomplete="new-password"
+                                                placeholder="Entrez un mot de passe">
                                             @error('password')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -86,4 +85,4 @@
             </div>
         </section>
     </div>
-@endsection
+</x-admin.layout.app>

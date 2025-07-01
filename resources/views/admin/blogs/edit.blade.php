@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-admin.layout.app title="Update Article">
     <x-admin.layout.page-title title="Blogs" :backRoute="route('admin.blogs.index')" :createRoute="route('admin.blogs.create')" create-label="Ajouter" :indexRoute="route('admin.blogs.index')" />
 
     <section>

@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-admin.layout.app title="List of Articles">
     <x-admin.layout.page-title title="Blogs" :createRoute="route('admin.blogs.create')" create-label="Ajouter" />
 
     <x-admin.layout.card-wrapper>

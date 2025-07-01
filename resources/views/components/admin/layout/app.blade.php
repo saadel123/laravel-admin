@@ -1,4 +1,4 @@
-@props(['title' => 'Admin'])
+@props(['title' => ''])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="robots" content="noindex, nofollow">
-    <title>{{ $title }}</title>
+    {{-- Use $title if it's not empty; otherwise fallback to 'Admin' --}}
+    <title>{{ $title ?: 'Admin' }}</title>
 
     <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

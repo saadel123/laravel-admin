@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-admin.layout.app title="Edit User Information">
     <x-admin.layout.page-title title="Utilisateurs" :backRoute="route('admin.users.index')" :createRoute="route('admin.users.create')" create-label="Modifier"
         :index-route="route('admin.users.index')" />
 

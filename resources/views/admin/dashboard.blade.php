@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-admin.layout.app title="Admin Dashboard">
     <div class="pagetitle">
         <h1>Dashboard</h1>
         <nav>

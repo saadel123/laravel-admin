@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-admin.layout.app title="Contact Messages">
     <x-admin.layout.page-title title="Contacts" :createRoute="route('admin.contacts.create')" create-label="Ajouter" />
 
     <x-admin.layout.card-wrapper>

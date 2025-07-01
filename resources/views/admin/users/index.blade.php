@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-admin.layout.app title="User Management">
     <x-admin.layout.page-title title="Utilisateurs" :createRoute="route('admin.users.create')" create-label="Ajouter" />
 
     <x-admin.layout.card-wrapper>

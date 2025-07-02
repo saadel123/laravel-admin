@@ -6,13 +6,28 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::latest()->get();
-        return view('admin.contacts.index', compact('contacts'));
+        if ($request->ajax()) {
+            $query = Contact::select(['id', 'name', 'email', 'object', 'created_at'])->latest();
+
+            return DataTables::of($query)
+                ->addColumn('actions', function ($user) {
+                    return view('components.admin.ui.action-buttons', [
+                        'editRoute' => route('admin.contacts.edit', $user),
+                        'deleteRoute' => route('admin.contacts.destroy', $user),
+                    ])->render();
+                })
+                ->rawColumns(['actions']) // Allow HTML for the 'actions' column
+                ->make(true);
+        }
+
+        // For initial non-AJAX view load
+        return view('admin.contacts.index');
     }
 
     public function create()

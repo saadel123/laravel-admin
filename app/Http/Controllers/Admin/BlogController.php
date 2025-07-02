@@ -7,14 +7,37 @@ use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::latest()->get();
-        return view('admin.blogs.index', compact('blogs'));
+        if ($request->ajax()) {
+            $query = Blog::select(['id', 'slug', 'created_at', 'title'])->latest();
+
+            return DataTables::of($query)
+                ->addColumn('title_fr', function ($blog) {
+                    return $blog->title['fr'] ?? '-';
+                })
+                ->addColumn('date', function ($blog) {
+                    return $blog->created_at->format('Y-m-d');
+                })
+                ->addColumn('actions', function ($blog) {
+                    return view('components.admin.ui.action-buttons', [
+                        'editRoute' => route('admin.blogs.edit', $blog->id),
+                        'deleteRoute' => route('admin.blogs.destroy', $blog->id),
+                    ])->render();
+                })
+                ->rawColumns(['actions'])
+                ->make(true);
+        }
+
+        return view('admin.blogs.index');
     }
+
+
+
 
     public function create()
     {

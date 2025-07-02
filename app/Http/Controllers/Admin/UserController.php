@@ -10,13 +10,28 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->get();
-        return view('admin.users.index', compact('users'));
+        if ($request->ajax()) {
+            $query = User::select(['id', 'name', 'email', 'created_at'])->latest();
+
+            return DataTables::of($query)
+                ->addColumn('actions', function ($user) {
+                    return view('components.admin.ui.action-buttons', [
+                        'editRoute' => route('admin.users.edit', $user),
+                        'deleteRoute' => route('admin.users.destroy', $user),
+                    ])->render();
+                })
+                ->rawColumns(['actions']) // Allow HTML for the 'actions' column
+                ->make(true);
+        }
+
+        // For initial non-AJAX view load
+        return view('admin.users.index');
     }
 
     public function create()

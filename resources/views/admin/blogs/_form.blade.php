@@ -2,7 +2,7 @@
     submit-label="{{ isset($blog) ? 'Mettre à jour' : 'Créer' }}" enctype="multipart/form-data" :show-reset="!isset($blog)">
 
     @foreach (['fr', 'en', 'ar'] as $lang)
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label for="title_{{ $lang }}" class="form-label">Titre ({{ strtoupper($lang) }})</label>
             <input type="text" id="title_{{ $lang }}" name="title[{{ $lang }}]"
                 class="form-control @error("title.$lang") is-invalid @enderror"
@@ -14,14 +14,18 @@
             @enderror
         </div>
 
-        <div class="col-md-6">
-            <label for="content_{{ $lang }}" class="form-label">Contenu ({{ strtoupper($lang) }})</label>
-            <textarea id="content_{{ $lang }}" name="content[{{ $lang }}]" rows="2"
-                class="form-control @error("content.$lang") is-invalid @enderror"
-                placeholder="Saisir le contenu en {{ strtoupper($lang) }}" @if ($lang === 'fr') required @endif>{{ old("content.$lang", $blog->content[$lang] ?? '') }}</textarea>
-            @error("content.$lang")
-                <span class="error invalid-feedback d-block">{{ $message }}</span>
-            @enderror
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contenu ({{ strtoupper($lang) }})</h5>
+                    <textarea id="content_{{ $lang }}" name="content[{{ $lang }}]"
+                        class="tinymce-editor form-control @error("content.$lang") is-invalid @enderror"
+                        placeholder="Saisir le contenu en {{ strtoupper($lang) }}" @if ($lang === 'fr') required @endif>{!! old("content.$lang", $blog->content[$lang] ?? '') !!}</textarea>
+                    @error("content.$lang")
+                        <span class="text-danger d-block">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
         </div>
     @endforeach
 

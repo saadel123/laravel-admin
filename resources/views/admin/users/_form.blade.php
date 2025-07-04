@@ -1,52 +1,19 @@
 <x-admin.ui.form-card :title="isset($user) ? 'Modifier un utilisateur' : 'Ajouter un utilisateur'" :action="isset($user) ? route('admin.users.update', $user) : route('admin.users.store')" :method="isset($user) ? 'PUT' : 'POST'"
     submit-label="{{ isset($user) ? 'Mettre à jour' : 'Créer' }}" :show-reset="!isset($user)">
-    <div class="col-md-6">
-        <label for="name" class="form-label">Nom</label>
-        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror"
-            value="{{ old('name', $user->name ?? '') }}">
-        @error('name')
-            <span class="error invalid-feedback d-block">{{ $message }}</span>
-        @enderror
-    </div>
+    {{-- Name --}}
+    <x-admin.ui.inputs.text id="name" name="name" label="Nom" :value="$user->name ?? ''" required />
 
-    <div class="col-md-6">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
-            value="{{ old('email', $user->email ?? '') }}">
-        @error('email')
-            <span class="error invalid-feedback d-block">{{ $message }}</span>
-        @enderror
-    </div>
+    {{-- Email --}}
+    <x-admin.ui.inputs.text id="email" name="email" label="Email" type="email" :value="$user->email ?? ''" required />
 
-    <div class="col-md-6">
-        <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" id="password" name="password"
-            class="form-control @error('password') is-invalid @enderror">
-        @error('password')
-            <span class="error invalid-feedback d-block">{{ $message }}</span>
-        @enderror
-    </div>
+    {{-- Password --}}
+    <x-admin.ui.inputs.text id="password" name="password" label="Mot de passe" type="password" />
 
-    <div class="col-md-6">
-        <div class="form-check mt-3">
-            <input class="form-check-input" type="checkbox" id="is_admin" name="is_admin" value="1"
-                {{ old('is_admin', $user->is_admin ?? false) ? 'checked' : '' }}>
-            <label class="form-check-label" for="is_admin">
-                Administrateur
-            </label>
-        </div>
-        @error('is_admin')
-            <span class="error invalid-feedback d-block">{{ $message }}</span>
-        @enderror
-    </div>
+    {{-- Password Confirmation --}}
+    <x-admin.ui.inputs.text id="password_confirmation" name="password_confirmation" label="Confirmation"
+        type="password" />
 
+    {{-- Admin checkbox --}}
+    <x-admin.ui.inputs.checkbox id="is_admin" name="is_admin" label="Administrateur" :checked="old('is_admin', $user->is_admin ?? false)" />
 
-    <div class="col-md-6">
-        <label for="password_confirmation" class="form-label">Confirmation</label>
-        <input type="password" id="password_confirmation" name="password_confirmation"
-            class="form-control @error('password_confirmation') is-invalid @enderror">
-        @error('password_confirmation')
-            <span class="error invalid-feedback d-block">{{ $message }}</span>
-        @enderror
-    </div>
 </x-admin.ui.form-card>

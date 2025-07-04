@@ -1,70 +1,36 @@
-<x-admin.ui.form-card :title="isset($blog) ? 'Modifier un blog' : 'Ajouter un blog'" :action="isset($blog) ? route('admin.blogs.update', $blog) : route('admin.blogs.store')" :method="isset($blog) ? 'PUT' : 'POST'"
-    submit-label="{{ isset($blog) ? 'Mettre à jour' : 'Créer' }}" enctype="multipart/form-data" :show-reset="!isset($blog)">
-
-    @foreach (['fr', 'en', 'ar'] as $lang)
-        <div class="col-md-12">
-            <label for="title_{{ $lang }}" class="form-label">Titre ({{ strtoupper($lang) }})</label>
-            <input type="text" id="title_{{ $lang }}" name="title[{{ $lang }}]"
-                class="form-control @error("title.$lang") is-invalid @enderror"
-                placeholder="Saisir le titre en {{ strtoupper($lang) }}"
-                value="{{ old("title.$lang", $blog->title[$lang] ?? '') }}"
-                @if ($lang === 'fr') required @endif>
-            @error("title.$lang")
-                <span class="error invalid-feedback d-block">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Contenu ({{ strtoupper($lang) }})</h5>
-                    <textarea id="content_{{ $lang }}" name="content[{{ $lang }}]"
-                        class="tinymce-editor form-control @error("content.$lang") is-invalid @enderror"
-                        placeholder="Saisir le contenu en {{ strtoupper($lang) }}" @if ($lang === 'fr') required @endif>{!! old("content.$lang", $blog->content[$lang] ?? '') !!}</textarea>
-                    @error("content.$lang")
-                        <span class="text-danger d-block">{{ $message }}</span>
-                    @enderror
-                </div>
+<x-admin.ui.form-card :title="isset($blog) ? 'Modifier un blog' : 'Ajouter un blog'" :action="isset($blog) ? route('admin.blogs.update', $blog) : route('admin.blogs.store')" :method="isset($blog) ? 'PUT' : 'POST'" enctype="multipart/form-data"
+    :show-reset="!isset($blog)" submit-label="{{ isset($blog) ? 'Mettre à jour' : 'Créer' }}">
+    <div class="row">
+        @foreach (['fr', 'en', 'ar'] as $lang)
+            <div class="col-md-12">
+                <x-admin.ui.inputs.text id="title_{{ $lang }}" name="title[{{ $lang }}]"
+                    label="Titre ({{ strtoupper($lang) }})" placeholder="Saisir le titre en {{ strtoupper($lang) }}"
+                    :value="$blog->title[$lang] ?? ''" :required="$lang === 'fr'" />
             </div>
-        </div>
-    @endforeach
 
-    {{-- Image principale --}}
-    <div class="col-12">
-        <label for="image" class="form-label">Image principale</label>
-        <input type="file" id="image" name="image" accept="image/*" class="form-control">
-        @error('image')
-            <span class="text-danger text-left">{{ $message }}</span>
-        @enderror
-
-        @if (isset($blog) && $blog->image)
-            {{-- Image preview + delete --}}
-            <div class="mt-2 position-relative d-inline-block">
-                <img src="{{ asset('storage/' . $blog->image) }}" alt="Image principale"
-                    style="max-height: 200px; border-radius: .25rem;">
-                <div class="position-absolute top-0 end-0 p-2 bg-white rounded-bottom-start" style="opacity: 0.9;">
-                    <button type="button" onclick="deleteMainImage({{ $blog->id }}, this)"
-                        class="btn btn-sm btn-link text-danger p-0 m-0" title="Supprimer l'image principale">
-                        <i class="bi bi-x-circle-fill fs-5"></i>
-                    </button>
-                </div>
+            <div class="col-md-12">
+                <x-admin.ui.inputs.tinymce id="content_{{ $lang }}" name="content[{{ $lang }}]"
+                    label="Contenu ({{ strtoupper($lang) }})" placeholder="Saisir le contenu en {{ strtoupper($lang) }}"
+                    :value="$blog->content[$lang] ?? ''" :required="$lang === 'fr'" />
             </div>
-        @endif
+        @endforeach
     </div>
 
-    {{-- Fichiers --}}
-    <div class="col-12">
-        <label for="files" class="form-label">Fichiers (images, vidéos, PDF)</label>
-        <input type="file" id="files" multiple name="files[]" accept="image/*,video/*,application/pdf"
-            class="form-control">
-        @if ($errors->has('files.*'))
-            @foreach ($errors->get('files.*') as $error)
-                <span class="text-danger text-left">{{ $error[0] }}</span><br>
-            @endforeach
-        @endif
+
+    <div class="row">
+        {{-- Image principale --}}
+        <div class="col-12 mb-4">
+            <x-admin.ui.inputs.image-upload :value="$blog->image ?? null" :blogId="$blog->id ?? null" />
+        </div>
+
+        {{-- Fichiers --}}
+        <div class="col-12">
+            <x-admin.ui.inputs.file-multiple label="Fichiers (images, vidéos, PDF)" />
+        </div>
+
     </div>
 
-    {{-- Resources --}}
+    {{-- Resources Preview --}}
     @if (isset($blog) && $blog->resources->count())
         <div class="row" id="resources-container">
             @foreach ($blog->resources as $resource)
@@ -84,24 +50,19 @@
                                     style="height: 200px; background: #f0f0f0;">
                                     <a href="{{ asset('storage/' . $resource->file_path) }}" target="_blank"
                                         class="text-decoration-none">
-                                        <i class="bi bi-file-earmark-pdf-fill text-danger fs-1"></i><br>
-                                        Voir PDF
+                                        <i class="bi bi-file-earmark-pdf-fill text-danger fs-1"></i><br>Voir PDF
                                     </a>
                                 </div>
                             @endif
 
-                            <!-- Action buttons -->
                             <div class="position-absolute top-0 end-0 p-2 bg-white rounded-bottom-start"
                                 style="opacity: 0.9;">
-                                <!-- Delete Icon -->
                                 <button type="button" onclick="deleteResource({{ $resource->id }}, this)"
                                     class="btn btn-sm btn-link text-danger p-0 m-0" title="Supprimer">
                                     <i class="bi bi-x-circle-fill fs-5"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <!-- Optional: Display File Type or Main Label -->
                         <div class="card-body text-center p-2">
                             <small class="text-muted">{{ strtoupper($resource->file_type) }}</small>
                             @if ($resource->is_main)
@@ -113,6 +74,8 @@
             @endforeach
         </div>
     @endif
+
+
 
     @push('scripts')
         <script>
